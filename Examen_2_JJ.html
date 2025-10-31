@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* --- Estilos CSS Modernos y Elegantes (sin cambios) --- */
+ 
     :root {
       --primary-color: #673AB7;
       --secondary-color: #795548;
@@ -103,11 +103,10 @@
       box-shadow: 0 3px 8px var(--shadow-color);
     }
 
-    /* Estilos para los contenedores de botones */
     .button-container {
       display: flex;
       justify-content: center;
-      gap: 20px; /* Espacio entre los botones */
+      gap: 20px; 
       margin-top: 35px;
     }
 
@@ -172,7 +171,7 @@
       color: #311B92;
     }
 
-    /* Estilos para la información de donación */
+   
     #donacion {
       margin-top: 45px;
       padding: 30px;
@@ -184,7 +183,7 @@
       color: var(--text-color);
     }
 
-    /* Estilos para dispositivos móviles */
+  
     @media (max-width: 600px) {
       body {
         padding: 20px;
@@ -221,11 +220,11 @@
   <label for="frase-usuario">Escribe tu propia frase:</label>
   <input type="text" id="frase-usuario" placeholder="Escribe tu frase aquí">
 
-  <!-- Botón para cargar la foto -->
+
   <label for="cargar-foto">Cargar tu foto:</label>
   <input type="file" id="cargar-foto" accept="image/*">
 
-  <!-- Contenedor para los botones -->
+
   <div class="button-container">
     <button onclick="combinarFotoYMarco()">Guardar</button>
     <button onclick="compartirEnRedSocial1()">Compartir en Facebook</button>
@@ -233,7 +232,7 @@
     <button onclick="compartirEnRedSocial3()">Compartir en X</button>
   </div>
 
-  <!-- Sección de Noticias -->
+  
   <div id="noticias">
     <h2>Noticias Recientes de Poza Rica</h2>
     <ul>
@@ -253,7 +252,7 @@ Las aguas del afluente invadieron calles y avenidas de la cabecera municipal, in
     </ul>
   </div>
 
-  <!-- Sección de Información de Donación -->
+
   <div id="donacion">
     <h2>Si desea apoyar monetariamente, puede donar a la siguiente cuenta:</h2>
     <p><b>Cuenta:</b> 0404040406</p>
@@ -263,18 +262,18 @@ Las aguas del afluente invadieron calles y avenidas de la cabecera municipal, in
   </div>
 
   <script>
-    // --- JavaScript ---
+ 
     const fotoPreview = document.getElementById("foto-preview");
     const cargarFotoInput = document.getElementById("cargar-foto");
 
     cargarFotoInput.addEventListener("change", function() {
-      const file = this.files[0]; // Obtiene el archivo seleccionado
+      const file = this.files[0]; 
       if (file) {
-        const reader = new FileReader(); // Crea un objeto FileReader
+        const reader = new FileReader();
         reader.addEventListener("load", function() {
-          fotoPreview.src = this.result; // Asigna la URL de datos a la imagen
+          fotoPreview.src = this.result;
         });
-        reader.readAsDataURL(file); // Lee el archivo como una URL de datos
+        reader.readAsDataURL(file); 
       }
     });
 
@@ -283,34 +282,34 @@ Las aguas del afluente invadieron calles y avenidas de la cabecera municipal, in
       const fraseUsuarioInput = document.getElementById("frase-usuario");
       const fraseUsuario = fraseUsuarioInput.value;
 
-      // Crear un elemento canvas
+     
       const canvas = document.createElement('canvas');
       canvas.width = fotoPreview.width;
       canvas.height = fotoPreview.height;
       const ctx = canvas.getContext('2d');
 
-      // Dibujar la foto cargada por el usuario
+    
       ctx.drawImage(fotoPreview, 0, 0, canvas.width, canvas.height);
 
-      // Escribir la frase del usuario (si hay una)
+      
       if (fraseUsuario) {
         escribirFrase(ctx, fraseUsuario, canvas.width, canvas.height);
       }
 
-      // Generar y descargar la imagen
+   
       generarDescarga(canvas);
     }
 
     function escribirFrase(ctx, frase, width, height) {
-      ctx.font = "42px 'Dancing Script', cursive"; // Fuente más elegante y tamaño más grande
-      ctx.fillStyle = '#F0F8FF'; // Cambiar el color a un tono azulado
+      ctx.font = "42px 'Dancing Script', cursive";
+      ctx.fillStyle = '#F0F8FF';
       ctx.textAlign = "center";
-      ctx.shadowColor = "black"; // Sombra para mejor legibilidad
+      ctx.shadowColor = "black"; 
       ctx.shadowBlur = 7;
       ctx.lineWidth = 3
 
-      // Ajusta la posición y el tamaño de la fuente según tus necesidades
-      ctx.fillText(frase, width / 2, height - 50); // Coloca la frase en la parte inferior de la imagen
+
+      ctx.fillText(frase, width / 2, height - 50); 
     }
 
     function generarDescarga(canvas) {
@@ -319,10 +318,10 @@ Las aguas del afluente invadieron calles y avenidas de la cabecera municipal, in
       downloadLink.href = dataURL;
       downloadLink.download = "foto_con_frase.png";
       downloadLink.textContent = "Descargar foto";
-      downloadLink.style.display = "none"; // Oculta el enlace de descarga
+      downloadLink.style.display = "none";
       document.body.appendChild(downloadLink);
-      downloadLink.click(); // Simula un clic en el enlace para iniciar la descarga
-      document.body.removeChild(downloadLink); // Elimina el enlace después de la descarga
+      downloadLink.click(); 
+      document.body.removeChild(downloadLink);
     }
 
     function compartirEnRedSocial1() {
@@ -339,4 +338,5 @@ Las aguas del afluente invadieron calles y avenidas de la cabecera municipal, in
 
   </script>
 </body>
+
 </html>
