@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor de Foto - Apoyo a Poza Rica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* --- Estilos CSS Modernos y Elegantes (sin cambios) --- */
+    :root {
+      --primary-color: #673AB7;
+      --secondary-color: #795548;
+      --text-color: #444;
+      --bg-color: #FAFAFA;
+      --shadow-color: rgba(0, 0, 0, 0.15);
+      --border-radius: 10px;
+      --gradient-bg: linear-gradient(to bottom, #E0E0E0, #FAFAFA);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+      background: var(--gradient-bg);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    h1 {
+      color: var(--primary-color);
+      margin-bottom: 25px;
+      font-weight: 500;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    #foto-container {
+      width: 90%;
+      max-width: 500px;
+      margin: 20px auto;
+      border: 1px solid #ddd;
+      position: relative;
+      box-shadow: 0 5px 15px var(--shadow-color);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      background-color: #fff;
+    }
+
+    #foto-container:hover {
+      transform: translateY(-7px);
+    }
+
+    #foto-preview {
+      width: 100%;
+      display: block;
+      border-bottom: 1px solid #eee;
+      transition: opacity 0.3s ease;
+    }
+
+    #foto-preview:hover {
+      opacity: 0.85;
+    }
+
+    #marco-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background-size: cover;
+      background-repeat: no-repeat;
+      z-index: 1;
+      opacity: 0.7;
+    }
+
+    label {
+      display: block;
+      margin-top: 25px;
+      font-weight: 500;
+      color: var(--secondary-color);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 14px;
+      margin-top: 10px;
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius);
+      font-size: 1em;
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 3px 8px var(--shadow-color);
+    }
+
+    /* Estilos para los contenedores de botones */
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px; /* Espacio entre los botones */
+      margin-top: 35px;
+    }
+
+    button {
+      padding: 15px 28px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1.1em;
+      cursor: pointer;
+      box-shadow: 0 3px 8px var(--shadow-color);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    button:hover {
+      background-color: #512DA8;
+      transform: translateY(-4px);
+    }
+
+    #noticias {
+      margin-top: 45px;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: var(--border-radius);
+      box-shadow: 0 5px 12px var(--shadow-color);
+      text-align: left;
+    }
+
+    #noticias h2 {
+      color: var(--secondary-color);
+      margin-bottom: 20px;
+      font-weight: 500;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+    }
+
+    #noticias ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    #noticias li {
+      margin-bottom: 20px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 15px;
+    }
+
+    #noticias li:last-child {
+      border-bottom: none;
+    }
+
+    #noticias a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    #noticias a:hover {
+      color: #311B92;
+    }
+
+    /* Estilos para la información de donación */
+    #donacion {
+      margin-top: 45px;
+      padding: 30px;
+      background-color: #fff;
+      border-radius: var(--border-radius);
+      box-shadow: 0 5px 12px var(--shadow-color);
+      text-align: left;
+      font-size: 1.1em;
+      color: var(--text-color);
+    }
+
+    /* Estilos para dispositivos móviles */
+    @media (max-width: 600px) {
+      body {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 2.2em;
+      }
+
+      #foto-container {
+        width: 100%;
+        margin: 20px auto;
+      }
+
+      input[type="text"] {
+        width: 95%;
+        padding: 12px;
+      }
+
+      button {
+        font-size: 1.2em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Editor de Foto - Apoyo a Poza Rica</h1>
+
+  <div id="foto-container">
+    <img id="foto-preview" src="placeholder.jpg" alt="Foto" />
+    <div id="marco-overlay" class="marco"></div>
+  </div>
+
+  <label for="frase-usuario">Escribe tu propia frase:</label>
+  <input type="text" id="frase-usuario" placeholder="Escribe tu frase aquí">
+
+  <!-- Botón para cargar la foto -->
+  <label for="cargar-foto">Cargar tu foto:</label>
+  <input type="file" id="cargar-foto" accept="image/*">
+
+  <!-- Contenedor para los botones -->
+  <div class="button-container">
+    <button onclick="combinarFotoYMarco()">Guardar</button>
+    <button onclick="compartirEnRedSocial1()">Compartir en Facebook</button>
+    <button onclick="compartirEnRedSocial2()">Compartir en Instagram</button>
+    <button onclick="compartirEnRedSocial3()">Compartir en X</button>
+  </div>
+
+  <!-- Sección de Noticias -->
+  <div id="noticias">
+    <h2>Noticias Recientes de Poza Rica</h2>
+    <ul>
+      <li><a href="#">¿Qué pasó en Veracruz con las lluvias? Esto sabemos sobre la crisis que enfrenta Poza Rica y otros municipios tras fuertes lluvias e inundaciones </a> - Veracruz es escenario de una de las peores tragedias registradas en lo que va del 2025 en México a causa de las intensas lluvias e inundaciones. Mientras las autoridades comienzan las tareas de limpieza y el censo de número de afectados, la población continúa buscando a personas desaparecidas y reportan graves daños.
+
+La gravedad de la situación provocó que la presidenta Claudia Sheinbaum Pardo se trasladara la mañana del 12 de octubre a la región afectada, donde prometió a la población que "a nadie se le va dejar desamparado".
+
+Hasta el momento, la Coordinación Nacional de Protección Civil (CNPC) ha informado un total de 29 fallecidos y 18 desaparecidos, pero la población de municipios como Poza Rica, Veracruz asegura que la cifra es mayor.
+</li>
+      <li><a href="#">Inundaciones en Poza Rica, Veracruz </a> - Miles de personas perdieron todas sus pertenencias tras la catástrofe que dejó el desbordamiento del Río Cazones en Poza Rica , Veracruz y las imágenes de las graves inundaciones, que han provocado decenas de muertos y desaparecidos, rápidamente han acaparado la atención nacional.
+
+El Río Cazones se desbordó el viernes 10 de octubre, a consecuencia de las fuertes lluvias, sin embargo, fue en los siguientes días cuando las autoridades y población de los demás estados se dieron cuenta de la magnitud de los daños provocados por las inundaciones.</li>
+      <li><a href="#">Amanece Poza Rica bajo el agua tras el desbordamiento del río Cazones en Veracruz</a> - El Rio Cazones se desbordó durante las últimas horas y afectó grandes zonas urbanas de la ciudad de Poza Rica, en el norte de Veracruz.
+
+Las aguas del afluente invadieron calles y avenidas de la cabecera municipal, inundando comercios y viviendas en las partes bajas de la ciudad petrolera.
+</li>
+    </ul>
+  </div>
+
+  <!-- Sección de Información de Donación -->
+  <div id="donacion">
+    <h2>Si desea apoyar monetariamente, puede donar a la siguiente cuenta:</h2>
+    <p><b>Cuenta:</b> 0404040406</p>
+    <p><b>Clave interbancaria:</b> 012180004040404062</p>
+    <p><b>Banco:</b> BBVA Bancomer</p>
+    <p><b>A nombre de:</b> Cruz Roja Mexicana IAP</p>
+  </div>
+
+  <script>
+    // --- JavaScript ---
+    const fotoPreview = document.getElementById("foto-preview");
+    const cargarFotoInput = document.getElementById("cargar-foto");
+
+    cargarFotoInput.addEventListener("change", function() {
+      const file = this.files[0]; // Obtiene el archivo seleccionado
+      if (file) {
+        const reader = new FileReader(); // Crea un objeto FileReader
+        reader.addEventListener("load", function() {
+          fotoPreview.src = this.result; // Asigna la URL de datos a la imagen
+        });
+        reader.readAsDataURL(file); // Lee el archivo como una URL de datos
+      }
+    });
+
+    function combinarFotoYMarco() {
+      const fotoPreview = document.getElementById("foto-preview");
+      const fraseUsuarioInput = document.getElementById("frase-usuario");
+      const fraseUsuario = fraseUsuarioInput.value;
+
+      // Crear un elemento canvas
+      const canvas = document.createElement('canvas');
+      canvas.width = fotoPreview.width;
+      canvas.height = fotoPreview.height;
+      const ctx = canvas.getContext('2d');
+
+      // Dibujar la foto cargada por el usuario
+      ctx.drawImage(fotoPreview, 0, 0, canvas.width, canvas.height);
+
+      // Escribir la frase del usuario (si hay una)
+      if (fraseUsuario) {
+        escribirFrase(ctx, fraseUsuario, canvas.width, canvas.height);
+      }
+
+      // Generar y descargar la imagen
+      generarDescarga(canvas);
+    }
+
+    function escribirFrase(ctx, frase, width, height) {
+      ctx.font = "42px 'Dancing Script', cursive"; // Fuente más elegante y tamaño más grande
+      ctx.fillStyle = '#F0F8FF'; // Cambiar el color a un tono azulado
+      ctx.textAlign = "center";
+      ctx.shadowColor = "black"; // Sombra para mejor legibilidad
+      ctx.shadowBlur = 7;
+      ctx.lineWidth = 3
+
+      // Ajusta la posición y el tamaño de la fuente según tus necesidades
+      ctx.fillText(frase, width / 2, height - 50); // Coloca la frase en la parte inferior de la imagen
+    }
+
+    function generarDescarga(canvas) {
+      const dataURL = canvas.toDataURL("image/png");
+      const downloadLink = document.createElement("a");
+      downloadLink.href = dataURL;
+      downloadLink.download = "foto_con_frase.png";
+      downloadLink.textContent = "Descargar foto";
+      downloadLink.style.display = "none"; // Oculta el enlace de descarga
+      document.body.appendChild(downloadLink);
+      downloadLink.click(); // Simula un clic en el enlace para iniciar la descarga
+      document.body.removeChild(downloadLink); // Elimina el enlace después de la descarga
+    }
+
+    function compartirEnRedSocial1() {
+      window.location.href = "https://es-la.facebook.com/.";
+    }
+
+        function compartirEnRedSocial2() {
+      window.location.href = "https://www.instagram.com/";
+    }
+
+        function compartirEnRedSocial3() {
+      window.location.href = "https://x.com/";
+    }
+
+  </script>
+</body>
+</html>
